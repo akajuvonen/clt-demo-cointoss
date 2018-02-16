@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import argparse
 
 def coin_toss(flips):
-    return [x for x in [random.randint(0,1) for x in range(flips)]]    
+    return [x for x in [random.randint(0,1) for x in range(flips+1)]]    
 
 def parse_arguments():
     parser = argparse.ArgumentParser()
