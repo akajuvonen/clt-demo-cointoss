@@ -7,7 +7,7 @@ def coin_toss(flips):
     return [x for x in [random.randint(0,1) for x in range(flips+1)]]    
 
 def parse_arguments():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
     parser.add_argument('-f', '--flips', type=int, help='number of flips', default='100')
     parser.add_argument('-i', '--iterations', type=int, help='number of iterations', default='1000')
     args = vars(parser.parse_args())
