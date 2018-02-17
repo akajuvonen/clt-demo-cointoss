@@ -4,7 +4,7 @@ import matplotlib.pyplot as plt
 import argparse
 
 def coin_toss(flips):
-    return [x for x in [random.randint(0,1) for x in range(flips+1)]]    
+    return [x for x in [random.randint(0,1) for x in range(flips+1)]]
 
 def parse_arguments():
     parser = argparse.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
@@ -19,7 +19,14 @@ def main():
     flips, iterations = parse_arguments()
     print('Calculating distribution with {} flips and {} iterations'.format(flips, iterations))
     dist = Counter([x for x in [sum([x==1 for x in coin_toss(flips)]) for x in range(iterations)]])
+
+    # Plot results
     plt.bar(dist.keys(), dist.values())
+    plt.xlabel('# of heads')
+    plt.ylabel('# of times flipped x heads per {} iterations'
+        .format(iterations))
+    plt.title('Coin toss with {} flips and {} iterations'
+        .format(flips, iterations))
     plt.show()
 
 if __name__=='__main__':
