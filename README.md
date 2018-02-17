@@ -1,6 +1,7 @@
 # clt-demo-cointoss
 
-Demonstration of central limit theorem using simulated coin tosses
+Demonstration of central limit theorem using simulated coin tosses.
+The script plots a bar plot and the corresponding normal distribution.
 
 # Dependencies
 
@@ -24,4 +25,10 @@ pip install -r requirements.txt
 
 # Running
 
-TODO.
+Run the simulation and plot results with 100 flips and 10,000 iterations:
+
+```
+python coin_toss.py -f 100 -i 10000
+```
+
+The default values are 100 flips and 1,000 iterations.
