@@ -3,6 +3,7 @@ from collections import Counter
 import matplotlib.pyplot as plt
 import argparse
 
+
 def coin_toss(flips):
     """Return a list of 1s and 0s which correspond to coin tosses.
     Arguments:
@@ -10,7 +11,8 @@ def coin_toss(flips):
     Returns:
     A list of [flips] coin toss results
     """
-    return [x for x in [random.randint(0,1) for x in range(flips+1)]]
+    return [x for x in [random.randint(0, 1) for x in range(flips+1)]]
+
 
 def parse_arguments():
     """Parse command line arguments.
@@ -29,22 +31,26 @@ def parse_arguments():
     iterations = args['iterations']
     return flips, iterations
 
+
 def main():
     # Parse command line arguments
     flips, iterations = parse_arguments()
     print('Calculating distribution with {} flips and {} iterations'
-        .format(flips, iterations))
+          .format(flips, iterations))
+    # List of sums of heads with [flips] flips, one sum for each iteration
+    sums = [sum([x == 1 for x in coin_toss(flips)]) for x in range(iterations)]
     # Calculate the distribution of heads (or tails, makes no difference)
-    dist = Counter([x for x in [sum([x==1 for x in coin_toss(flips)]) for x in range(iterations)]])
+    dist = Counter(sums)
 
     # Plot results
     plt.bar(dist.keys(), dist.values())
     plt.xlabel('# of heads')
     plt.ylabel('# of times flipped x heads per {} iterations'
-        .format(iterations))
+               .format(iterations))
     plt.title('Coin toss with {} flips and {} iterations'
-        .format(flips, iterations))
+              .format(flips, iterations))
     plt.show()
 
-if __name__=='__main__':
+
+if __name__ == '__main__':
     main()
