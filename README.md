@@ -32,3 +32,8 @@ python coin_toss.py -f 100 -i 10000
 ```
 
 The default values are 100 flips and 1,000 iterations.
+
+The above example should show a plot similar to figure below, including
+the coin toss results and the corresponding normal distribution.
+
+![Example figure](images/ex.png)
