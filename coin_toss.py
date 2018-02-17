@@ -52,7 +52,7 @@ def calculate_normal_dist(flips, iterations, step=0.1):
     # Standard deviation
     std = math.sqrt(variance)
     # X-axis from 0 to [flips], between every [step]
-    x_axis = np.arange(0, flips+1, step)
+    x_axis = np.arange(0, flips, step)
     return x_axis, norm.pdf(x_axis, mean, std)*iterations
 
 
