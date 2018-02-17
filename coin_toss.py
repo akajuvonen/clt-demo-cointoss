@@ -2,6 +2,9 @@ import random
 from collections import Counter
 import matplotlib.pyplot as plt
 import argparse
+import math
+from scipy.stats import norm
+import numpy as np
 
 
 def coin_toss(flips):
@@ -11,7 +14,7 @@ def coin_toss(flips):
     Returns:
     A list of [flips] coin toss results
     """
-    return [x for x in [random.randint(0, 1) for x in range(flips+1)]]
+    return [x for x in [random.randint(0, 1) for x in range(flips)]]
 
 
 def parse_arguments():
@@ -32,6 +35,28 @@ def parse_arguments():
     return flips, iterations
 
 
+def calculate_normal_dist(flips, iterations, step=0.1):
+    """Calculates the x and y axis for coin toss normal distribution.
+    Arguments:
+    flips -- # of flips per iteration
+    iterations -- # of total iterations
+    step -- Step size for plotting (default=0.1)
+    Returns:
+    x and y axis for normal distribution with given params and step size
+    """
+    mean = flips/2.0
+    # Probability of heads (or tails)
+    p = 0.5
+    n = flips
+    variance = n * p * (1 - p)
+    # Standard deviation
+    std = math.sqrt(variance)
+    # X-axis from 0 to [flips], between every [step]
+    x_axis = np.arange(0, flips+1, step)
+    return x_axis, norm.pdf(x_axis, mean, std)*iterations
+
+
+
 def main():
     # Parse command line arguments
     flips, iterations = parse_arguments()
@@ -41,6 +66,11 @@ def main():
     sums = [sum([x == 1 for x in coin_toss(flips)]) for x in range(iterations)]
     # Calculate the distribution of heads (or tails, makes no difference)
     dist = Counter(sums)
+
+    # Calculate normal dist
+    x_axis, y_axis = calculate_normal_dist(flips, iterations)
+    # Plot the corresponding normal distribution
+    plt.plot(x_axis, y_axis, 'r')
 
     # Plot results
     plt.bar(dist.keys(), dist.values())
